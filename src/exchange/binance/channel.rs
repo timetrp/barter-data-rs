@@ -9,6 +9,7 @@ use crate::{
     Identifier,
 };
 use serde::Serialize;
+use crate::subscription::candle::Candles;
 
 /// Type that defines how to translate a Barter [`Subscription`] into a [`Binance`](super::Binance)
 /// channel to be subscribed to.
@@ -46,6 +47,8 @@ impl BinanceChannel {
     ///
     /// See docs: <https://binance-docs.github.io/apidocs/futures/en/#liquidation-order-streams>
     pub const LIQUIDATIONS: Self = Self("@forceOrder");
+
+    pub const CANDLES: Self = Self("@kline");
 }
 
 impl<Server> Identifier<BinanceChannel> for Subscription<Binance<Server>, PublicTrades> {
@@ -70,6 +73,12 @@ impl Identifier<BinanceChannel> for Subscription<BinanceFuturesUsd, Liquidations
     fn id(&self) -> BinanceChannel {
         BinanceChannel::LIQUIDATIONS
     }
+}
+
+impl Identifier<BinanceChannel> for Subscription<BinanceFuturesUsd, Candles> {
+
+    fn id(&self) -> BinanceChannel { BinanceChannel::CANDLES }
+
 }
 
 impl AsRef<str> for BinanceChannel {
