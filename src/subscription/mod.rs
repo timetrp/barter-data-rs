@@ -76,6 +76,17 @@ where
     }
 }
 
+// #TODO better interval abstraction
+impl<Exchange, S, I, Kind> From<(Exchange, S, I, Kind)> for Subscription<Exchange, Kind>
+where
+    I: Into<Instrument>,
+{
+    fn from((exchange, symbol, instrument, kind): (Exchange, S, I, Kind)) -> Self {
+        Self::new(exchange, instrument, kind)
+    }
+
+}
+
 impl<Exchange, Kind> Subscription<Exchange, Kind> {
     /// Constructs a new [`Subscription`] using the provided configuration.
     pub fn new<I>(exchange: Exchange, instrument: I, kind: Kind) -> Self

@@ -48,7 +48,7 @@ impl BinanceChannel {
     /// See docs: <https://binance-docs.github.io/apidocs/futures/en/#liquidation-order-streams>
     pub const LIQUIDATIONS: Self = Self("@forceOrder");
 
-    pub const CANDLES: Self = Self("@kline");
+    pub const CANDLES: Self = Self("@kline_1m");
 }
 
 impl<Server> Identifier<BinanceChannel> for Subscription<Binance<Server>, PublicTrades> {
@@ -77,7 +77,7 @@ impl Identifier<BinanceChannel> for Subscription<BinanceFuturesUsd, Liquidations
 
 impl Identifier<BinanceChannel> for Subscription<BinanceFuturesUsd, Candles> {
 
-    fn id(&self) -> BinanceChannel { BinanceChannel::CANDLES }
+    fn id(&self) -> BinanceChannel { BinanceChannel::CANDLES}
 
 }
 

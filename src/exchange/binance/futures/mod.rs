@@ -6,6 +6,8 @@ use crate::{
     transformer::{book::MultiBookTransformer, stateless::StatelessTransformer},
     ExchangeWsStream,
 };
+use crate::exchange::binance::futures::candle::BinanceCandle;
+use crate::subscription::candle::Candles;
 
 /// Level 2 OrderBook types (top of book) and perpetual
 /// [`OrderBookUpdater`](crate::transformer::book::OrderBookUpdater) implementation.
@@ -13,6 +15,7 @@ pub mod l2;
 
 /// Liquidation types.
 pub mod liquidation;
+pub mod candle;
 
 /// [`BinanceFuturesUsd`] WebSocket server base url.
 ///
@@ -41,4 +44,8 @@ impl StreamSelector<OrderBooksL2> for BinanceFuturesUsd {
 
 impl StreamSelector<Liquidations> for BinanceFuturesUsd {
     type Stream = ExchangeWsStream<StatelessTransformer<Self, Liquidations, BinanceLiquidation>>;
+}
+
+impl StreamSelector<Candles> for BinanceFuturesUsd {
+    type Stream = ExchangeWsStream<StatelessTransformer<Self, Candles, BinanceCandle>>;
 }
