@@ -108,6 +108,7 @@ impl From<(ExchangeId, Instrument, BinanceCandle)> for MarketIter<Candle> {
                 close: candle.kline.close,
                 volume: candle.kline.volume,
                 trade_count: candle.kline.num_trades,
+                is_closed: candle.kline.is_closed
             },
         })])
     }

@@ -21,4 +21,5 @@ pub struct Candle {
     pub close: f64,
     pub volume: f64,
     pub trade_count: u64,
+    pub is_closed: bool,
 }
